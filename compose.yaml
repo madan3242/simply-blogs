@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16.0-alpine3.18
+    container_name: postgresql
+    restart: always
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NODE_ENV: development
+    
+    user: ${POSTGRES_USER}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: ./client
+    container_name: react
+    ports:
+      - 4000:4000
+    restart: always
+
+  server:
+    build:
+      context: ./server
+    container_name: web-api
+    restart: always
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USERNAME: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes: 
+      - ./:/usr/src/app
+    ports:
+      - 8000:8000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      web:
+  
+volumes:
+  postgres-data:
