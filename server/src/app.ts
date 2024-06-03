@@ -5,16 +5,18 @@ import cors from "cors";
 import morgan from "morgan";
 import router from "./routers";
 import { handleError, notFound } from "./middlewares/error";
+import helmet from "helmet";
 
 const app = express();
 
 /**
  * Middlewares
  */
+app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors());
 app.use(morgan("dev"));
 
 /**

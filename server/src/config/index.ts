@@ -1,26 +1,15 @@
-import dotEnv from "dotenv";
-dotEnv.config();
+import { Pool } from "pg";
 
-// if (process.env.NODE_ENV !== "prod") {
-//     let configFile = `./.env.${process.env.NODE_ENV}`
-//     dotenv.config({ path: configFile});
-// } else {
-//     dotenv.config();
-// }
+let DATABASE_URL = `postgres://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`;
 
-let PORT = process.env.PORT;
+const pool = new Pool({
+    connectionString: DATABASE_URL
+});
 
-let DATABASE_USER = process.env.DATABASE_USER;
-let DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
-let DATABASE_HOST = process.env.DATABASE_HOST;
-let DATABASE_PORT = process.env.DATABASE_PORT;
-let DATABASE_NAME = process.env.DATABASE_NAME;
+const query = (text: any, params: any) => pool.query(text, params);
+const end = pool.end();
 
 export {
-    PORT,
-    DATABASE_HOST,
-    DATABASE_PORT,
-    DATABASE_USER,
-    DATABASE_PASSWORD,
-    DATABASE_NAME
+    query,
+    end
 }
