@@ -1,11 +1,15 @@
-
-interface UserInterface {
-    username: string;
-    password: string;
+type User = {
+    username?: string,
+    email?: string,
+    password?: string,
 }
 
 class AuthService {
-    async signUpService(user: UserInterface) {
+    async signUpService(user: User) {
 
+    }
+
+    async loginService(user: User) {
+        
     }
 }
