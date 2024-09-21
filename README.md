@@ -1,2 +1,2 @@
 # Blog App
-A simple Bloging Application using React.js, Node.js, Express.js, PostgreSQL
+A simple Blogging Application using React.js, Node.js, Express.js, PostgreSQL
