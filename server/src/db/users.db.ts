@@ -5,6 +5,10 @@ const getAllUsers = async () => {
     return users.rows;
 }
 
+const createUser = async () =>{
+    
+}
+
 export {
     getAllUsers
 }

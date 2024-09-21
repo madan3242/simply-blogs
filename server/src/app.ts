@@ -6,6 +6,7 @@ import morgan from "morgan";
 import router from "./routers";
 import { handleError, notFound } from "./middlewares/error";
 import helmet from "helmet";
+import path from "path";
 
 const app = express();
 
@@ -24,9 +25,14 @@ app.use(morgan("dev"));
  */
 app.use("/api/v1", router);
 
-app.get("/", (req: Request, res: Response) => {
-  return res.status(200).send("Tested Ok");
-});
+// app.get("/", (req: Request, res: Response) => {
+//   return res.status(200).send("Tested Ok");
+// });
+
+app.use(express.static(path.join(__dirname, "../../client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../../client/dist/index.html"))
+})
 
 /**
  * Error Middlewares
