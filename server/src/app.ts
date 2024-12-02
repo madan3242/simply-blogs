@@ -25,14 +25,14 @@ app.use(morgan("dev"));
  */
 app.use("/api/v1", router);
 
-// app.get("/", (req: Request, res: Response) => {
-//   return res.status(200).send("Tested Ok");
-// });
+app.get("/", (req: Request, res: Response) => {
+  return res.status(200).send("Tested Ok");
+});
 
-app.use(express.static(path.join(__dirname, "../../client/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../../client/dist/index.html"))
-})
+// app.use(express.static(path.join(__dirname, "../../client/dist")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../../client/dist/index.html"))
+// })
 
 /**
  * Error Middlewares
