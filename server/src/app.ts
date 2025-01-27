@@ -6,7 +6,7 @@ import morgan from "morgan";
 import router from "./routers";
 import { handleError, notFound } from "./middlewares/error";
 import helmet from "helmet";
-import path from "path";
+// import path from "path";
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.use(morgan("dev"));
  */
 app.use("/api/v1", router);
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (req, res) => {
   return res.status(200).send("Tested Ok");
 });
 
