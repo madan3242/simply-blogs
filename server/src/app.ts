@@ -1,14 +1,14 @@
-import express, { Request, Response } from "express"
+import express, { Application, Request, Response } from "express"
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
-import router from "./routers";
+// import router from "./routers";
 import { handleError, notFound } from "./middlewares/error";
 import helmet from "helmet";
 // import path from "path";
 
-const app = express();
+const app: Application = express();
 
 /**
  * Middlewares
@@ -23,9 +23,9 @@ app.use(morgan("dev"));
 /**
  * Api Routes
  */
-app.use("/api/v1", router);
+// app.use("/api/v1", router);
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   return res.status(200).send("Tested Ok");
 });
 
