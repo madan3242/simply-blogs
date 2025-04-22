@@ -1,14 +1,13 @@
-import express, { Application, Request, Response } from "express"
+import express, { Request, Response } from "express"
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
-// import router from "./routers";
+import router from "./routers";
 import { handleError, notFound } from "./middlewares/error";
 import helmet from "helmet";
-// import path from "path";
 
-const app: Application = express();
+const app = express();
 
 /**
  * Middlewares
@@ -20,19 +19,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan("dev"));
 
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).send("Tested Ok");
+});
+
 /**
  * Api Routes
  */
-// app.use("/api/v1", router);
+app.use("/api/v1", router);
 
-app.get("/", (req: Request, res: Response) => {
-  return res.status(200).send("Tested Ok");
-});
-
-// app.use(express.static(path.join(__dirname, "../../client/dist")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "../../client/dist/index.html"))
-// })
 
 /**
  * Error Middlewares
